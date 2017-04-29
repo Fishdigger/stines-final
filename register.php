@@ -82,7 +82,7 @@
           "gender" => $_POST["gender"],
           "phone" => $_POST["phone"]
         ));
-        echo $thisCustomer->id;
+        echo $thisCustomer->create();
       }
      ?>
 
