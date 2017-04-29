@@ -5,10 +5,12 @@
   class User_DO {
 
     public function create($arr){
-      $sql = "INSERT INTO Logins VALUES (?, ?);";
+      $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+      include("$root/final/infrastructure/db_connector.php");
+      $sql = "INSERT INTO Logins (Username, Password) VALUES (?, ?);";
       $stmt = $conn->prepare($sql);
       $stmt->bind_param('ss', $arr['username'], $arr['password']);
-      return $this->commit($stmt);
+      return array("status" => $this->commit($stmt), "id" => $stmt->insert_id);
     }
 
     public function update($arr){
