@@ -1,0 +1,28 @@
+footer {
+  background-color: #222222;
+  margin-top: 10%;
+  height: 5%;
+}
+footer p{
+  padding-top: 10px;
+}
+
+#nav-username {
+  color: white;
+  float: right;
+  margin-right: 5%;
+}
+
+.page-title {
+  margin-top: 5%;
+}
+
+#form_div {
+  margin-top: 5%;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
