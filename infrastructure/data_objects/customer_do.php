@@ -1,11 +1,10 @@
 <?php
-  $root = realpath($_SERVER["DOCUMENT_ROOT"]);
-  include("$root/final/infrastructure/db_connector.php");
-  include("$root/final/models/customer.php");
+
   class Customer_DO {
 
     public function create($values){
-      include("$root/final/models/customer.php");
+      $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+      include("$root/final/infrastructure/db_connector.php");
       $sql = "INSERT INTO Customers(UserID, FirstName, LastName, Address, City,
         State, Zip, Phone, Email, Gender) VALUES
         (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";

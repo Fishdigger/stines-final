@@ -1,5 +1,4 @@
 <?php
-  $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 
   class Customer
   {
@@ -13,7 +12,6 @@
     private $email;
     private $gender;
     private $phone;
-    private $customer_id;
 
     //returns the value of a called property, assuming it exists.
     public function __get($property){
@@ -39,23 +37,24 @@
 
     private function all_params(){
       $params = array(
-        "FirstName" => $this->first_name,
-        "LastName" => $this->last_name,
-        "Address" => $this->address,
-        "City" => $this->city,
-        "State" => $this->state,
-        "Zip" => $this->zip,
-        "Email" => $this->email,
-        "Gender" => $this->gender,
-        "Phone" => $this->phone
+        "first_name" => $this->first_name,
+        "last_name" => $this->last_name,
+        "address" => $this->address,
+        "city" => $this->city,
+        "state" => $this->state,
+        "zip" => $this->zip,
+        "email" => $this->email,
+        "gender" => $this->gender,
+        "phone" => $this->phone
       );
       return $params;
     }
 
     public function create(){
+      $root = realpath($_SERVER["DOCUMENT_ROOT"]);
       include("$root/final/infrastructure/data_objects/customer_do.php");
       $do = new Customer_DO();
-      $r = $do->create($this);
+      $r = $do->create($this->all_params());
       return $r;
     }
 

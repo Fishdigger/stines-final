@@ -10,8 +10,7 @@
       $sql = "INSERT INTO Logins (Username, Password) VALUES (?, ?);";
       $stmt = $conn->prepare($sql);
       $stmt->bind_param('ss', $arr['username'], $arr['password']);
-      $i = $stmt->insert_id;
-      return array("status" => $this->commit($stmt), "id" => $i);
+      return $this->commit($stmt);
     }
 
     public function update($arr){
@@ -19,6 +18,22 @@
       $stmt = $conn->prepare($sql);
       $stmt->bind_param('ssi', $arr['username'], $arr['password'], $arr['id']);
       return $this->commit($stmt);
+    }
+
+    public function getIDByUsername($u){
+      $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+      include("$root/final/infrastructure/db_connector.php");
+      $sql = "SELECT ID FROM Logins WHERE Username LIKE ?;";
+      $stmt = $conn->prepare($sql);
+      $stmt->bind_param("s", $u);
+      $stmt->execute();
+      $stmt->store_result();
+      $stmt->bind_result($i);
+      if($stmt->num_rows == 1){
+        while($stmt->fetch()){
+          return $i;
+        }
+      }
     }
 
     public function load($id){

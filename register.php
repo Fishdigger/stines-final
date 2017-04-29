@@ -63,35 +63,26 @@
 
     <?php }
       if(isset($_POST['register'])){
-        require("$root/final/infrastructure/data_objects/customer_do.php");
-        require("$root/final/infrastructure/data_objects/user_do.php");
-        $custDTO = new Customer_DO();
-        $usDTO = new User_DO();
-        $good = $usDTO->create(array($_POST['email'], $_POST['password']));
-        if($good["status"] == True){
-          $custArray = array(
-            "id" => $good["id"],
-            "email" => $_POST["email"],
-            "first_name" => $_POST["first_name"],
-            "last_name" => $_POST["last_name"],
-            "address" => $_POST["address"],
-            "city" => $_POST["city"],
-            "state" => $_POST["state"],
-            "zip" => $_POST["zip"],
-            "phone" => $_POST["phone"],
-            "gender" => $_POST["gender"]
-          );
-          $still_good = $custDTO->create($custArray);
-          if($still_good){
-            header("Location: ./account.php?id=".$good["id"]);
-          }
-          else {
-            echo "<p class='text-center text-danger'>Could not create customer</p>";
-          }
-        }
-        else {
-          echo "<p class='text-center text-danger'>Could not create user</p>";
-        }
+        include("$root/final/models/customer.php");
+        require("$root/final/models/user.php");
+        $thisUser = new User(array(
+          "username" => $_POST["email"],
+          "password" => $_POST["password"]
+        ));
+        echo $thisUser->create();
+        $thisCustomer = new Customer(array(
+          "id" => $thisUser->getID(),
+          "first_name" => $_POST["first_name"],
+          "last_name" => $_POST["last_name"],
+          "address" => $_POST["address"],
+          "city" => $_POST["city"],
+          "state" => $_POST["state"],
+          "zip" => $_POST["zip"],
+          "email" => $thisUser->getUsername(),
+          "gender" => $_POST["gender"],
+          "phone" => $_POST["phone"]
+        ));
+        echo $thisCustomer->id;
       }
      ?>
 
