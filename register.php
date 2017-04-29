@@ -85,6 +85,12 @@
           if($still_good){
             header("Location: ./account.php?id=".$good["id"]);
           }
+          else {
+            echo "<p class='text-center text-danger'>Could not create customer</p>";
+          }
+        }
+        else {
+          echo "<p class='text-center text-danger'>Could not create user</p>";
         }
       }
      ?>

@@ -10,7 +10,8 @@
       $sql = "INSERT INTO Logins (Username, Password) VALUES (?, ?);";
       $stmt = $conn->prepare($sql);
       $stmt->bind_param('ss', $arr['username'], $arr['password']);
-      return array("status" => $this->commit($stmt), "id" => $stmt->insert_id);
+      $i = $stmt->insert_id;
+      return array("status" => $this->commit($stmt), "id" => $i);
     }
 
     public function update($arr){
