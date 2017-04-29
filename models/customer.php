@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 
   class Customer
   {
@@ -54,8 +56,7 @@
       $root = realpath($_SERVER["DOCUMENT_ROOT"]);
       include("$root/final/infrastructure/data_objects/customer_do.php");
       $do = new Customer_DO();
-      $r = $do->create($this->all_params());
-      return $r;
+      return $do->create($this->all_params());
     }
 
     public function edit(){
