@@ -6,20 +6,22 @@
 
     public function create($values){
       include("$root/final/models/customer.php");
-      $sql = "INSERT INTO Customers VALUES
+      $sql = "INSERT INTO Customers(UserID, FirstName, LastName, Address, City,
+        State, Zip, Phone, Email, Gender) VALUES
         (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
       $stmt = $conn->prepare($sql);
-      $stmt->bind_param("isssssssss", $customer_object->id, $customer_object->first_name,
-      $customer_object->last_name, $customer_object->address, $customer_object->city,
-      $customer_object->state, $customer_object->zip, $customer_object->email,
-      $customer_object->gender, $customer_object->phone);
+      $stmt->bind_param("isssssssss", $values["id"], $values["first_name"],
+        $values["last_name"], $values["address"], $values["city"], $values["state"],
+        $values["zip"], $values["phone"], $values["email"], $values["gender"]);
       return $this->commit($stmt);
     }
 
     public function update($id, $values){
+      $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+      include("$root/final/infrastructure/db_connector.php");
       $sql = "UPDATE Customers SET FirstName = ?, LastName = ?, Address = ?,
         City = ?, State = ?, Zip = ?, Email = ?, Gender = ?, Phone = ?
-        WHERE CustomerID = ?;";
+        WHERE UserID = ?;";
       $stmt = $conn->prepare($sql);
       $stmt->bind_param("sssssssssi", $values["FirstName"], $values["LastName"],
       $values["Address"], $values["City"], $values["State"], $values["Zip"],
