@@ -23,7 +23,7 @@
     public function getIDByUsername($u){
       $root = realpath($_SERVER["DOCUMENT_ROOT"]);
       include("$root/final/infrastructure/db_connector.php");
-      $sql = "SELECT ID FROM Logins WHERE Username LIKE ?;";
+      $sql = "SELECT ID FROM Logins WHERE Username = ?;";
       $stmt = $conn->prepare($sql);
       $stmt->bind_param("s", $u);
       $stmt->execute();

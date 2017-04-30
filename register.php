@@ -69,9 +69,10 @@
           "username" => $_POST["email"],
           "password" => $_POST["password"]
         ));
-        echo $thisUser->create();
+        $ugood = $thisUser->create();
+        $i = $thisUser->getID();
         $thisCustomer = new Customer(array(
-          "id" => $thisUser->getID(),
+          "id" => $i,
           "first_name" => $_POST["first_name"],
           "last_name" => $_POST["last_name"],
           "address" => $_POST["address"],
@@ -82,7 +83,10 @@
           "gender" => $_POST["gender"],
           "phone" => $_POST["phone"]
         ));
-        echo $thisCustomer->create();
+        $cgood = $thisCustomer->create();
+        if($ugood && $cgood){
+          header("Location: ./account.php?id=$thisCustomer->id");
+        }
       }
      ?>
 

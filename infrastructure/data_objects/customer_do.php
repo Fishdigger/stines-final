@@ -6,7 +6,7 @@ ini_set('display_errors', '1');
     public function create($values){
       $root = realpath($_SERVER["DOCUMENT_ROOT"]);
       include("$root/final/infrastructure/db_connector.php");
-      $sql = "INSERT INTO Customers(UserID, FirstName, LastName, Address, City,
+      $sql = "INSERT INTO Customers (UserID, FirstName, LastName, Address, City,
         State, Zip, Phone, Email, Gender) VALUES
         (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
       $stmt = $conn->prepare($sql);

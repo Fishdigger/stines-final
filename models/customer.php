@@ -14,6 +14,7 @@ ini_set('display_errors', '1');
     private $email;
     private $gender;
     private $phone;
+    private $do;
 
     //returns the value of a called property, assuming it exists.
     public function __get($property){
@@ -23,6 +24,8 @@ ini_set('display_errors', '1');
     }
 
     public function __construct($arr){
+      $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+      include("$root/final/infrastructure/data_objects/customer_do.php");
       if(isset($arr["id"])){
         $this->id = $arr["id"];
       }
@@ -35,10 +38,12 @@ ini_set('display_errors', '1');
       $this->email = $arr['email'];
       $this->gender = $arr['gender'];
       $this->phone = $arr['phone'];
+      $this->do = new Customer_DO();
     }
 
     private function all_params(){
       $params = array(
+        "id" => $this->id,
         "first_name" => $this->first_name,
         "last_name" => $this->last_name,
         "address" => $this->address,
@@ -53,16 +58,11 @@ ini_set('display_errors', '1');
     }
 
     public function create(){
-      $root = realpath($_SERVER["DOCUMENT_ROOT"]);
-      include("$root/final/infrastructure/data_objects/customer_do.php");
-      $do = new Customer_DO();
-      return $do->create($this->all_params());
+      return $this->do->create($this->all_params());
     }
 
     public function edit(){
-      include("$root/final/infrastructure/data_objects/customer_do.php");
-      $do = new Customer_DO();
-      $r = $do->update($this->id, $this->all_params());
+      $r = $this->do->update($this->id, $this->all_params());
       return $r;
     }
 
