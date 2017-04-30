@@ -20,6 +20,7 @@
       if(isset($_GET['id'])){
         require("$root/final/infrastructure/data_objects/customer_do.php");
         require("$root/final/infrastructure/data_objects/user_do.php");
+        require("$root/final/models/customer.php");
         require("$root/final/models/user.php");
         $cdo = new Customer_DO();
         $udo = new User_DO();
