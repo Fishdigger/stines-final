@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
+include("$root/final/infrastructure/data_objects/customer_do.php");
 
   class Customer
   {
@@ -25,7 +26,6 @@ ini_set('display_errors', '1');
 
     public function __construct($arr){
       $root = realpath($_SERVER["DOCUMENT_ROOT"]);
-      include("$root/final/infrastructure/data_objects/customer_do.php");
       if(isset($arr["id"])){
         $this->id = $arr["id"];
       }
